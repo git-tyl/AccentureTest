@@ -29,6 +29,8 @@ let CalendarManager2 = NativeModules.CalendarManager2;
 
 export default class App extends Component<Props> {
 
+  //objective case
+  //return an array
   // async updateEvents() {
   //   try {
   //     var events = await CalendarManager.findEvents();
@@ -39,10 +41,50 @@ export default class App extends Component<Props> {
   //   }
   // }
 
+  async afnetworkingTest() {
+    try {
+      var events = await CalendarManager.AFNetworkingTest();
+
+      console.log(events);
+      this.setState({events});
+    } catch (e) {
+
+      console.error(e);
+    }
+  }
+
+  async afnetworkingPostTest() {
+    try {
+      var events = await CalendarManager.AFNetworkingPostTest();
+
+      console.log(events);
+      this.setState({events});
+    } catch (e) {
+
+      console.error(e);
+    }
+  }
+
   render() {
-    let date1 = new Date('05 October 2011 14:48 UTC');
-    CalendarManager2.callbackMethod((err,r) => console.log(r));
-    CalendarManager2.addEvent('--------------------------------', '4 Privet Drive', date1.getTime());
+    // let date1 = new Date('05 October 2011 14:48 UTC');
+    //test get for afnetworking
+    // this.afnetworkingTest();
+    //test post for afnetworking
+    // this.afnetworkingPostTest();
+    //test passing event to a swift method
+    // CalendarManager2.addEvent('--------------------------------', '4 Privet Drive', date1.getTime());
+
+    //test call back for swift
+    // CalendarManager2.callbackMethod((err,r) => console.log(r));
+
+    //test passing objc to AFNetworkingIntoSwift to react
+    CalendarManager2.testAFNetworkingGet((err,r) => {
+      // console.log("---------------test--------------");
+      console.log(r)
+
+      }
+    );
+
     // this.updateEvents();
     //
     // CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
@@ -52,6 +94,8 @@ export default class App extends Component<Props> {
     //   '4 Privet Drive, Surrey',
     //   date.getTime()
     // );
+
+    // CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
 
     return React.createElement(Text, {style: styles.description}, "Search for houses to buy!");
   }

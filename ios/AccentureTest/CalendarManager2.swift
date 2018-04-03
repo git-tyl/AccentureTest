@@ -12,6 +12,26 @@ import Foundation
 
 class CalendarManager2: NSObject {
   
+  @objc(testAFNetworkingGet:)
+  func testAFNetworkingGet(callback: @escaping RCTResponseSenderBlock) -> Void {
+    
+    // Date is ready to use!
+//    pureObjectCAFNetworking.getTest();
+    
+    pureObjectCAFNetworking.getTestWithCompletionHandler { (response, responseObject, error) in
+            
+      if let robj:Any = responseObject {
+        let resultsDict = [
+          "responseObject" : robj
+        ];
+//        print("getTestWithCompletionHandler------------------- \(robj) --------------------------");
+        callback([NSNull() ,resultsDict])
+      }
+      
+      
+    }
+  }
+  
   @objc(addEvent:location:date:)
   func addEvent(name: String, location: String, date: NSNumber) -> Void {
     // Date is ready to use!
