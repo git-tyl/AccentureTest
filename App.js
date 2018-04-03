@@ -25,30 +25,33 @@ import {
 
 type Props = {};
 let CalendarManager = NativeModules.CalendarManager;
+let CalendarManager2 = NativeModules.CalendarManager2;
 
 export default class App extends Component<Props> {
 
-  async updateEvents() {
-    try {
-      var events = await CalendarManager.findEvents();
-      this.setState({events});
-    } catch (e) {
-
-      console.error(e);
-    }
-  }
+  // async updateEvents() {
+  //   try {
+  //     var events = await CalendarManager.findEvents();
+  //     this.setState({events});
+  //   } catch (e) {
+  //
+  //     console.error(e);
+  //   }
+  // }
 
   render() {
-
-    this.updateEvents();
-
-    CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
-    let date = new Date('05 October 2011 14:48 UTC');
-    CalendarManager.addTimeEvent(
-      'Birthday Party',
-      '4 Privet Drive, Surrey',
-      date.getTime()
-    );
+    let date1 = new Date('05 October 2011 14:48 UTC');
+    CalendarManager2.callbackMethod((err,r) => console.log(r));
+    CalendarManager2.addEvent('--------------------------------', '4 Privet Drive', date1.getTime());
+    // this.updateEvents();
+    //
+    // CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
+    // let date = new Date('05 October 2011 14:48 UTC');
+    // CalendarManager.addTimeEvent(
+    //   'Birthday Party',
+    //   '4 Privet Drive, Surrey',
+    //   date.getTime()
+    // );
 
     return React.createElement(Text, {style: styles.description}, "Search for houses to buy!");
   }
